@@ -1,0 +1,22 @@
+int par[100005];
+ll sz[100005];
+
+int find(int x)
+{	if(par[x]!=x)
+		par[x]=find(par[x]);
+	return par[x];
+}
+
+void merge(int x,int y)
+{	int xr=find(x),yr=find(y);
+	if(xr==yr)
+		return;
+	if(sz[xr]>=sz[yr]){
+		par[yr]=xr;
+		sz[xr]+=sz[yr];
+	}
+	else{
+		par[xr]=yr;
+		sz[yr]+=sz[xr];
+	}
+}
