@@ -6,7 +6,7 @@ void shortest_path(int src)
 	while(!pq.empty())
 	{	ll u=pq.front().second;
 		pq.pop();
-		for(auto i:v[u])		// v[][] -> vec(pi(int,int)) 1st->node 2nd->wt
+		for(auto i:graph[u])		// graph[][] -> vec(pi(int,int)) 1st->node 2nd->wt
 		{	ll v=i.first,wt=i.second; 
             if(dist[v]>dist[u]+wt) 
             {	dist[v]=dist[u]+wt; 
