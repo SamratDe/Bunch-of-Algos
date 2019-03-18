@@ -5,14 +5,15 @@ void shortest_path(int src)
 	pq.push({0,src});
 	dist[src]=0;
 	while(!pq.empty())
-	{	ll u=pq.front().second;
+	{	ll u=pq.top().second;
 		pq.pop();
 		for(auto i:graph[u])		// graph[][] -> vec(pi(int,int)) 1st->node 2nd->wt
 		{	ll v=i.first,wt=i.second; 
-            		if(dist[v]>dist[u]+wt) 
-            		{	dist[v]=dist[u]+wt; 
-                		pq.push({dist[v],v}); 
-            		} 
+    		if(dist[v]>dist[u]+wt) 
+    		{	dist[v]=dist[u]+wt; 
+        		pq.push({dist[v],v}); 
+    		} 
 		}
 	}
 }
+
