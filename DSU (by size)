@@ -1,6 +1,13 @@
 int par[100005];
 ll sz[100005];
 
+void intialize(int n)
+{	rep(i,0,n)
+	{	par[i]=i;
+		sz[i]=1;
+	}
+}
+
 int find(int x)
 {	if(par[x]!=x)
 		par[x]=find(par[x]);
