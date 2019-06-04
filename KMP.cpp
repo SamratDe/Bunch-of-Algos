@@ -1,9 +1,9 @@
-void precomp_kmp(string pat,int m,ll* lps)
+void precomp_kmp(string txt,int m,ll* lps)
 {	ll len=0;
 	lps[0]=0;  
     ll i=1; 
     while(i<m)
-	{	if(parent[i]==parent[len])
+	{	if(txt[i]==txt[len])
 		{ 	len++; 
             lps[i]=len; 
             i++; 
@@ -19,25 +19,25 @@ void precomp_kmp(string pat,int m,ll* lps)
     } 
 } 
   
-// Prints occurrences of txt[] in pat[] 
-void kmp(string parent,string txt) 
-{	ll m=parent.size(),n=txt.size(); 
+// Prints occurrences of txt[] in parent[] 
+ll kmp(string txt,string parent) 
+{	ll m=txt.size(),n=parent.size(); 
     ll lps[m];  
-    precomp_kmp(parent,m,lps); 
-    ll i=0,j=0; 
+    precomp_kmp(txt,m,lps); 
+    ll i=0,j=0,count=0; 
     while(i<n)
-	{	if(parent[j]==txt[i])
+	{	if(txt[j]==parent[i])
 		{	j++;i++;}
         if(j==m)
 		{	count++; 
             j=lps[j-1]; 
         } 
-        else if(i<n && parent[j]!=txt[i])
+        else if(i<n && txt[j]!=parent[i])
 		{	if(j!=0) 
                 j=lps[j-1]; 
             else
                 i++; 
         } 
     } 
+    return count;
 } 
- 
