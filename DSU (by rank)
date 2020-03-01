@@ -1,20 +1,20 @@
-int par[100005],rnk[100005];
+int par[N],rnk[N];
 
-void intialize(int n)
-{	rep(i,0,n)
-	{	par[i]=i;
+void init(){
+	rep(i,0,N){
+		par[i]=i;
 		rnk[i]=1;
 	}
 }
 
-int find(int x)
-{	if(par[x]!=x)
+int find(int x){
+	if(par[x]!=x)
 		par[x]=find(par[x]);
 	return par[x];
 }
 
-void merge(int x,int y)
-{	int xr=find(x),yr=find(y);
+void merge(int x,int y){
+	int xr=find(x),yr=find(y);
 	if(xr==yr)
 		return;
 	if(rnk[xr]>rnk[yr])
