@@ -1,22 +1,19 @@
 int arr[ ];		//size?
 
-typedef struct node
-{	//variables
+typedef struct node{
+	//variables
 	
-	void leaf(int x)
-	{	
+	void leaf(int x){	
 	
 	}
-	void merge(node x,node y)
-	{
+	void merge(node x,node y){
 	
 	}
 }node;
 
-void build(node segment[],int low,int high,int num)
-{
-	if(low==high)
-	{	segment[num].leaf(arr[low]);
+void build(node segment[],int low,int high,int num){
+	if(low==high){
+		segment[num].leaf(arr[low]);
 		return;
 	}
 	int mid=(low+high)/2;
@@ -25,14 +22,13 @@ void build(node segment[],int low,int high,int num)
 	segment[num].merge(segment[2*num],segment[2*num+1]);
 }
 
-void update(node segment[],int low,int high,int indx,int val,int num)	//point update
-{
-	if(low==high)
-	{	arr[indx]=val;
+void update(node segment[],int low,int high,int indx,int val,int num){
+	if(low==high){
+		arr[indx]=val;
 		segment[num].ele=val;
 	}
-	else
-	{	int mid=(low+high)/2;
+	else{
+		int mid=(low+high)/2;
 		if(indx>=low && indx<=mid)	
 			update(segment,low,mid,indx,val,2*num);
 		else
@@ -41,8 +37,7 @@ void update(node segment[],int low,int high,int indx,int val,int num)	//point up
 	}
 }
 
-node query(node segment[],int low,int high,int l,int r,ll num)			// range query
-{
+node query(node segment[],int low,int high,int l,int r,int num){
 	if(l<=low && r>= high)
 		return segment[num];
 	int mid=(low+high)/2;
