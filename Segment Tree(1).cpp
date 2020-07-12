@@ -1,58 +1,56 @@
-int arr[ ];		//size?
+int arr[1000005];
 
-typedef struct node{
-	//variables
-	
-	void leaf(int x){	
-	
+typedef struct node {
+	int ele;
+	void leaf(int x) {	
+		ele = x;
 	}
-	void merge(node x,node y){
-	
+	void merge(node x,node y) {
+		ele = x.ele + y.ele;
 	}
-}node;
+} node;
 
-void build(node segment[],int low,int high,int num){
-	if(low==high){
+void build(node segment[], int low, int high, int num) {
+	if (low == high) {
 		segment[num].leaf(arr[low]);
 		return;
 	}
-	int mid=(low+high)/2;
-	build(segment,low,mid,2*num);
-	build(segment,mid+1,high,2*num+1);
-	segment[num].merge(segment[2*num],segment[2*num+1]);
+	int mid = (low + high) / 2;
+	build(segment, low, mid, 2 * num);
+	build(segment, mid + 1, high, 2 * num + 1);
+	segment[num].merge(segment[2 * num], segment[2 * num + 1]);
 }
 
-void update(node segment[],int low,int high,int indx,int val,int num){
-	if(low==high){
-		arr[indx]=val;
-		segment[num].ele=val;
-	}
-	else{
-		int mid=(low+high)/2;
-		if(indx>=low && indx<=mid)	
-			update(segment,low,mid,indx,val,2*num);
-		else
-			update(segment,mid+1,high,indx,val,2*num+1);
-		segment[num].merge(segment[2*num],segment[2*num+1]);
+void update(node segment[], int low, int high, int indx, int val, int num) {
+	if (low == high) {
+		arr[indx] = val;
+		segment[num].ele = val;
+	} else {
+		int mid = (low + high) / 2;
+		if (indx >= low && indx <= mid) {
+			update(segment, low, mid, indx, val, 2 * num);
+		} else {
+			update(segment, mid + 1, high, indx, val, 2 * num + 1);
+		}
+		segment[num].merge(segment[2 * num], segment[2 * num + 1]);
 	}
 }
 
-node query(node segment[],int low,int high,int l,int r,int num){
-	if(l<=low && r>= high)
+node query(node segment[], int low, int high, int l, int r, int num) {
+	if (l <= low && r >= high) {
 		return segment[num];
-	int mid=(low+high)/2;
-	if(mid>=r)
-		return query(segment,low,mid,l,r,2*num);
-	else if(mid<l)
-		return query(segment,mid+1,high,l,r,2*num+1);
-	node m=query(segment,low,mid,l,r,2*num);
-	node n=query(segment,mid+1,high,l,r,2*num+1);
+	}
+	int mid = (low + high) / 2;
+	if (mid >= r) {
+		return query(segment, low, mid, l, r, 2 * num);
+	} else if (mid < l) {
+		return query(segment, mid + 1, high, l, r, 2 * num + 1);
+	}
+	node m = query(segment, low, mid, l, r, 2 * num);
+	node n = query(segment, mid + 1, high, l, r, 2 * num + 1);
 	node p;
-	p.merge(m,n);
+	p.merge(m, n);
 	return p;
 }
 
 // size of tree -> N=2*pow(2,ceil(log2(n)))      n is the size of arr[]
-
-
-
