@@ -48,7 +48,7 @@ void merge(int x, int y) {
 	}
 }
 
-int kruskal(int src) {
+int kruskal() {
 	int ans = 0;
 	sort(edges.begin(), edges.end());
 	for (int i = 0; i < edges.size(); i++) {
