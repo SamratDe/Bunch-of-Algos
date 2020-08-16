@@ -53,7 +53,7 @@ int kruskal(int src) {
 	sort(edges.begin(), edges.end());
 	for (int i = 0; i < edges.size(); i++) {
 		int u = edges[i].second.first;
-		int v = edges[i].second.first;
+		int v = edges[i].second.second;
 		int val = edges[i].first;
 		if (find(u) != find(v)) {
 			ans += val;
