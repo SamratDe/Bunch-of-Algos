@@ -1,34 +1,74 @@
-struct node
-{   struct node *child[26];
-    bool isEnd;
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+
+// structure of each node in Trie
+struct TrieNode {
+	struct TrieNode *child[26];	// array of pointers
+	bool isEndOfWord;
 };
 
-struct node *getNode()
-{   struct node *p=new node;
-    p->isEnd=0;
-    for(int i=0;i<26;i++)
-        p->child[i]=NULL;
-    return p;
+struct TrieNode *newNode() {
+	struct TrieNode *root = new TrieNode;
+	root->isEndOfWord = false;
+	for (int i = 0; i < 26; i++) {
+		root->child[i] = NULL;
+	}
+	return root;
 }
 
-void insert(struct node *root,string s)
-{   struct node *ptr=root;
-    for(int i=0;i<s.size();i++)
-    {   int indx=s[i]-'a';
-        if(ptr->child[indx]==NULL)
-            ptr->child[indx]=getNode();
-        ptr=ptr->child[indx];
-    }
-    ptr->isEnd=1;
+void insert(TrieNode *root, string str) {
+	struct TrieNode *node = root;
+	for (int i = 0; i < str.size(); i++) {
+		int indx = str[i] - 'a';
+		if (!node->child[indx]) {
+			node->child[indx] = newNode();
+		}
+		node = node->child[indx];
+	}
+	node->isEndOfWord = true;
 }
 
-bool search(node *root,string s)
-{   struct node *ptr=root;
-    for(int i=0;i<s.size();i++)
-    {   int indx=s[i]-'a';
-        if(ptr->child[indx]==NULL)
-            return 0;
-        ptr=ptr->child[indx];
-    }
-    return (ptr!=NULL && ptr->isEnd);
+bool search(TrieNode *root, string str) {
+	struct TrieNode *node = root;
+	for (int i = 0; i < str.size(); i++) {
+		int indx = str[i] - 'a';
+		if (!node->child[indx]) {
+			return false;
+		}
+		node = node->child[indx];
+	}
+	if (node != NULL && node->isEndOfWord) {
+		return true;
+	}
+	return false;
+}
+
+int main() {
+
+	int n;
+	cin >> n;
+	vector <string> keys;
+	for (int i = 0; i < n; i++) {
+		string str;
+		cin >> str;
+		keys.push_back(str);
+	}
+	struct TrieNode *root = newNode();
+	
+	// insert operation
+	for (int i = 0; i < keys.size(); i++) {
+		insert(root, keys[i]);
+	}
+
+	// search operation
+	string str;
+	cin >> str;
+	if (search(root, str)) {
+		cout << "Found !" << endl;
+	} else {
+		cout << "Not Found !" << endl;
+	}
+
+	return 0;
 }
