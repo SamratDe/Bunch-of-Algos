@@ -1,24 +1,17 @@
-// v[][] -> graph
+// add vectors -> visited, graph
 
-bool check(int src)
-{	int color[....];
-	rep(i,0,...)
-		color[i]=-1;
-	color[src]=1;
-	queue<int> q; 
-    q.push(src); 
-    while(!q.empty())
-    {	int u=q.front();
-    	q.pop();
-    	vis[u]=1;
-    	rep(i,0,v[u].size())
-    	{	if(color[v[u][i]]==-1)
-    		{	color[v[u][i]]=1-color[u];
-    			q.push(v[u][i]);
-    		}
-    		else if(color[v[u][i]]==color[u])
-    			return false;
-    	}
-    }
-    return true;
+bool checkForBipartite(int src, vector <int> &color) {
+	for (int i = 0; i < graph[src].size(); i++) {
+		int v = graph[src][i];
+		if (!visited[v]) {
+			visited[v] = 1;
+			color[v] = !color[src];
+			if (!checkForBipartite(v, color)) {
+				return false;
+			}
+		} else if (color[v] == color[src]) {
+			return false;
+		}
+	}
+	return true;
 }
