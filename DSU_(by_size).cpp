@@ -1,5 +1,8 @@
+#include <vector>
+using namespace std;
+
 const int N = 100001;
-int par[N], sz[N];
+vector<int> par(N), sz(N);
 
 void init() {
 	for (int i = 0; i < N; i++) {
