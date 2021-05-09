@@ -1,6 +1,11 @@
-//	Kosaraju's Linear time algorithm to find Strongly Connected Components:
+//  Strong Connectivity applies only to directed graphs. 
+//  A directed graph is strongly connected if there is a directed path from any vertex 
+//  to every other vertex.
 
-//	STEPS:
+//  Kosaraju's Linear time algorithm - Find Strongly Connected Components
+//  Complexity: O(V + E)
+
+//  STEPS:
 //	create empty stack, do dfs(like topo sort)
 //	reverse the direction of all arcs
 //	pop vertex from the stack and do dfs from that popped vertex on the reverse graph
