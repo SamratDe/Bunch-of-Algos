@@ -8,6 +8,7 @@ const int N = 10001;
 vector<int> graph[N];
 vector<bool> vis(N, false);
 vector<LL> discovery(N, 0), earliest(N, INF8), par(N, -1);
+vector<vector<int> > bridges;
 
 LL timeDisc = 0;
 
@@ -23,10 +24,10 @@ void findBridges(int src) {
       findBridges(v);
       earliest[src] = min(earliest[src], earliest[v]);
       if (earliest[v] > discovery[src]) {
-        cout << src << " " << v << endl;
+        vector<int> vec({src, v});
+        bridges.push_back(vec);
       }
-    }
-    else if(v != par[src]) {
+    } else if (v != par[src]) {
       earliest[src] = min(earliest[src], discovery[v]);
     }
   }
