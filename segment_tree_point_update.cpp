@@ -3,17 +3,19 @@ using namespace std;
 
 // segment tree structure
 typedef struct node {
-  int val;
+  int prefix, suffix, total, ans;
   void leaf(int x) {
-    val = x;
+    prefix = suffix = total = ans = x;
   }
   void merge(node x, node y) {
-    val = x.val + y.val;
+    prefix = max(x.prefix, x.total + y.prefix);
+    suffix = max(y.suffix, x.suffix + y.total);
+    total = x.total + y.total;
+    ans = max(prefix, max(suffix, max(total, max(x.ans, max(y.ans, x.suffix + y.prefix)))));
   }
 } node;
 
-const int N = 50000;
-vector<int> arr(N);
+vector<int> arr;
 
 // build segment tree
 void buildSegTree(node segment[], int l, int r, int num) {
@@ -55,9 +57,11 @@ node query(node segment[], int l, int r, int inputL, int inputR, int num) {
 
 
 int main() {
+  int n = 10000;
+  arr.assign(n, 0);
   // intialise
-  int SZ = 2 * pow(2, ceil(log2(N))) + 1;
-  node segment[SZ];
+  int sz = 2 * pow(2, ceil(log2(n))) + 1;
+  node segment[sz];
   // build
-  buildSegTree(segment, 0, N - 1, 1);
+  buildSegTree(segment, 0, n - 1, 1);
 }
