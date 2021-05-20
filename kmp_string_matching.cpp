@@ -1,45 +1,42 @@
-// const int M=100005;
-// string pat,txt;
-int lps[M];
+# include <vector>
+# include <string>
+# include <iostream>
+using namespace std;
 
-void preprocess(){
-  lps[0]=0;
-  int i=1,len=0;
-  while(i<pat.size()){
-    if(pat[i]==pat[len]){
-      len++;
-      lps[i++]=len;
-    }
-    else{
-      if(len!=0)
-        len=lps[len-1];
-      else{
-        lps[i]=0;
-        i++;
+vector<int> lps;
+string txt, pat;
+
+void precompute(int sz) {
+  int i = 1, len = 0;
+  while (i < sz) {
+    if (pat[i] == pat[len]) {
+      lps[i++] = ++len;
+    } else {
+      if (len != 0) {
+        len = lps[len - 1]; // MVP line
+      } else {
+        lps[i++] = 0;
       }
     }
   }
 }
 
-void KMP(){
-  preprocess();
-  int i,j,cnt;
-  i=j=cnt=0;
-  while(i<txt.size()){
-    if(txt[i]==pat[j])
-      i++,j++;
-    if(j==pat.size()){
-      cnt++;
-      j=lps[j-1];
-    }
-    else if(i<txt.size() && pat[j]!=txt[i]){
-      if(j)
-        j=lps[j-1];
-      else
-        i++;
+int kmpSearch() {
+  int n = txt.length();
+  int m = pat.length();
+  lps.assign(m, 0);
+  precompute(m);
+  int i = 0, j = 0;
+  int count = 0;
+  while (i < n) {
+    if (txt[i] == pat[j]) i++, j++;
+    if (j == m) {
+      count++;
+      j = lps[j - 1];
+    } else if (i < n && txt[i] != pat[j]) {
+      if (j != 0) j = lps[j - 1];
+      else i++;
     }
   }
-  cout<<cnt<<endl;
+  return count;
 }
-
-//KMP();

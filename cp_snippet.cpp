@@ -28,16 +28,19 @@ using namespace std;
 
 # define SAMRAT ios::sync_with_stdio(0);cin.tie(0);
 # define LL long long
+# define LD long double
 # define FOR(i,x,y) for(LL i=x;i<y;i++)
 # define RFOR(i,x,y) for(LL i=x;i>=y;i--)
-# define DEBUG_VAR(x) cout<<x<<endl;
+# define DEBUG_STL(x) for(auto i:x){cout<<i<<" ";}cout<<endl;
 # define DEBUG_1D(x,a,b) FOR(i,a,b){cout<<x[i]<<" ";}cout<<endl;
 # define DEBUG_2D(x,a1,b1,a2,b2) FOR(i,a1,b1){FOR(j,a2,b2){cout<<x[i][j]<<" ";}cout<<endl;}
 # define ALL(x) x.begin(), x.end()
 # define MOD (LL)(1e9+7)
 # define INF8 (LL)(1e17+5)
+# define endl '\n'
 
 typedef vector<LL> VI;
+typedef vector<bool> VB;
 typedef vector<string> VS;
 typedef vector<vector<LL> > VVI;
 typedef pair<LL, LL> PI;
