@@ -63,6 +63,21 @@ LL POWER(LL x, LL y) {
   return res;
 }
 
+LL nCR(int n, int r) {
+  r = min(r, n - r);
+  if (!r) return 1;
+  LL num = 1, deno = 1;
+  while (r) {
+    num *= n;
+    deno *= r;
+    LL div = std::gcd(num, deno); // only works on C++17
+    num /= div;
+    deno /= div;
+    n--, r--;
+  }
+  return num;
+}
+
 int main() {
 
   SAMRAT
