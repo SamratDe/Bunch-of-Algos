@@ -1,8 +1,10 @@
-#include <bits/stdc++.h>
+# include <iostream>
+# include <vector>
+# include <stdio.h>
 using namespace std;
-#define ll long long int
+#define ll long long
 
-// structure of each node in Trie
+// each node in Trie
 struct TrieNode {
   struct TrieNode *child[26];	// array of pointers
   bool isEndOfWord;
@@ -38,10 +40,20 @@ bool search(TrieNode *root, string str) {
     }
     node = node->child[indx];
   }
-  if (node != NULL && node->isEndOfWord) {
-    return true;
+  return (node != NULL && node->isEndOfWord);
+}
+
+// Any word that starts with the given prefix
+bool startsWith(TrieNode *root, string prefix) {
+  struct TrieNode *node = root;
+  for (int i = 0; i < prefix.length(); i++) {
+    int indx = prefix[i] - 'a';
+    if (node->child[indx] == NULL) {
+      return false;
+    }
+    node = node->child[indx];
   }
-  return false;
+  return true;
 }
 
 int main() {
@@ -54,21 +66,20 @@ int main() {
     cin >> str;
     keys.push_back(str);
   }
+
+  // root (dummy node)
   struct TrieNode *root = newNode();
   
-  // insert operation
+  // insert
   for (int i = 0; i < keys.size(); i++) {
     insert(root, keys[i]);
   }
 
-  // search operation
+  // search
   string str;
   cin >> str;
-  if (search(root, str)) {
-    cout << "Found !" << endl;
-  } else {
-    cout << "Not Found !" << endl;
-  }
+  if (search(root, str)) cout << "Found !" << endl;
+  else cout << "Not Found !" << endl;
 
   return 0;
 }
