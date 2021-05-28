@@ -1,32 +1,34 @@
-// when the element is present
-// returns 0-based index position
+# include <vector>
+using namespace std;
 
-ll lowerbound(ll arr[],int n,ll key)
-{	int ans=0,l=0,h=n-1;
-  while(l<=h)
-  {	if(arr[mid]==key)
-    {	ans=mid;
-      h=mid-1;
-    }
-    else if(arr[mid]>key)
-      h=mid-1;
-    else
-      l=mid+1;
+// when the element is present
+// 'ans' returns 0-based index position
+
+int lowerBound(vector<int> arr, int target) {
+  int ans = 0;
+  int n = arr.size();
+  // binary search
+  int l = 0, h = n - 1;
+  while (l <= h) {
+    if (arr[mid] == target) {
+      ans = mid;
+      h = mid - 1;
+    } else if (arr[mid] > target) h = mid - 1;
+    else l = mid + 1;
   }
   return ans;
 }
 
-ll upperbound(ll arr[],int n,ll key)
-{	int ans=0,l=0,h=n-1;
-  while(l<=h)
-  {	if(arr[mid]==key)
-    {	ans=mid;
-      l=mid+1;
-    }
-    else if(arr[mid]>key)
-      h=mid-1;
-    else
-      l=mid+1;
+int upperBound(vector<int> arr, int target) {
+  int ans = 0;
+  int n = arr.size();
+  int l = 0, h = n - 1;
+  while (l <= h) {
+    if (arr[mid] == target) {
+      ans = mid;
+      l = mid + 1;
+    } else if (arr[mid] > target) h = mid - 1;
+    else l = mid + 1;
   }
   return ans;
 }
