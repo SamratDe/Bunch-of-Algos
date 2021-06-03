@@ -21,7 +21,7 @@ void bfs(int src) {
 			if (dist[v] > dist[u] + wt) {
 				dist[v] = dist[u] + wt;
 				if (wt == 0) q.push_front(v);
-        else q.push_back(v);
+        		else q.push_back(v);
 			}
 		}
 	}

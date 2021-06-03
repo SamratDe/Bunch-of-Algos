@@ -31,7 +31,6 @@ using namespace std;
 # define LD long double
 # define FOR(i,x,y) for(LL i=x;i<y;i++)
 # define RFOR(i,x,y) for(LL i=x;i>=y;i--)
-# define DEBUG_STL(x) for(auto i:x){cout<<i<<" ";}cout<<endl;
 # define DEBUG_1D(x,a,b) FOR(i,a,b){cout<<x[i]<<" ";}cout<<endl;
 # define DEBUG_2D(x,a1,b1,a2,b2) FOR(i,a1,b1){FOR(j,a2,b2){cout<<x[i][j]<<" ";}cout<<endl;}
 # define ALL(x) x.begin(), x.end()
@@ -42,11 +41,11 @@ using namespace std;
 typedef vector<LL> VI;
 typedef vector<bool> VB;
 typedef vector<string> VS;
-typedef vector<vector<LL> > VVI;
+typedef vector<VI> VVI;
 typedef pair<LL, LL> PI;
-typedef pair<LL, PI > PPI;
-typedef vector<PI > VP;
-typedef vector<PPI > VPP;
+typedef pair<LL, PI> PPI;
+typedef vector<PI> VP;
+typedef vector<PPI> VPP;
 
 inline LL mod(LL x) {
   return (x%MOD + MOD)%MOD;
@@ -63,14 +62,14 @@ LL POWER(LL x, LL y) {
   return res;
 }
 
-LL nCR(int n, int r) {
+LL nCr(int n, int r) {
   r = min(r, n - r);
   if (!r) return 1;
   LL num = 1, deno = 1;
   while (r) {
     num *= n;
     deno *= r;
-    LL div = std::gcd(num, deno); // only works on C++17
+    LL div = gcd(num, deno); // only works on C++17
     num /= div;
     deno /= div;
     n--, r--;
