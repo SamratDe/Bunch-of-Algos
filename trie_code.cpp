@@ -1,85 +1,56 @@
-# include <iostream>
 # include <vector>
-# include <stdio.h>
+# include <string>
 using namespace std;
-#define ll long long
 
-// each node in Trie
-struct TrieNode {
-  struct TrieNode *child[26];	// array of pointers
-  bool isEndOfWord;
+class TrieNode {
+  public:
+    vector<TrieNode*> child;
+    bool isEndOfWord;
+
+    TrieNode() {
+      child.assign(26, NULL);
+      isEndOfWord = false;
+    }
 };
 
-struct TrieNode *newNode() {
-  struct TrieNode *root = new TrieNode;
-  root->isEndOfWord = false;
-  for (int i = 0; i < 26; i++) {
-    root->child[i] = NULL;
-  }
-  return root;
-}
+class Trie {
+  private:
+    TrieNode* root;
 
-void insert(TrieNode *root, string str) {
-  struct TrieNode *node = root;
-  for (int i = 0; i < str.size(); i++) {
-    int indx = str[i] - 'a';
-    if (!node->child[indx]) {
-      node->child[indx] = newNode();
+  public:
+    Trie(const vector<string> &words) {
+      root = new TrieNode();
+      for (int i = 0; i < words.size(); i++) {
+        insertWord(words[i]);
+      }
     }
-    node = node->child[indx];
-  }
-  node->isEndOfWord = true;
-}
 
-bool search(TrieNode *root, string str) {
-  struct TrieNode *node = root;
-  for (int i = 0; i < str.size(); i++) {
-    int indx = str[i] - 'a';
-    if (!node->child[indx]) {
-      return false;
+    TrieNode* getRoot() {
+      return root;
     }
-    node = node->child[indx];
-  }
-  return (node != NULL && node->isEndOfWord);
-}
 
-// Any word that starts with the given prefix
-bool startsWith(TrieNode *root, string prefix) {
-  struct TrieNode *node = root;
-  for (int i = 0; i < prefix.length(); i++) {
-    int indx = prefix[i] - 'a';
-    if (node->child[indx] == NULL) {
-      return false;
+    void insertWord(const string &word) {
+      TrieNode* currNode = root;
+      for (int i = 0; i < word.size(); i++) {
+        int indx = word[i] - 'a';
+        if (currNode->child[indx] == NULL) {
+          currNode->child[indx] = new TrieNode();
+        }
+        currNode = currNode->child[indx];
+      }
+      currNode->isEndOfWord = true;
     }
-    node = node->child[indx];
-  }
-  return true;
-}
 
-int main() {
+    bool search(TrieNode *root, string &word) {
+      TrieNode *currNode = root;
+      for (int i = 0; i < word.size(); i++) {
+        int indx = word[i] - 'a';
+        if (currNode->child[indx] == NULL) {
+          return false;
+        }
+        currNode = currNode->child[indx];
+      }
+      return (currNode != NULL && currNode->isEndOfWord);
+    }
+};
 
-  int n;
-  cin >> n;
-  vector <string> keys;
-  for (int i = 0; i < n; i++) {
-    string str;
-    cin >> str;
-    keys.push_back(str);
-  }
-
-  // root (dummy node)
-  struct TrieNode *root = newNode();
-  
-  // insert
-  for (int i = 0; i < keys.size(); i++) {
-    insert(root, keys[i]);
-  }
-
-  // search
-  string str;
-  cin >> str;
-  if (search(root, str)) cout << "Found !" << endl;
-  else cout << "Not Found !" << endl;
-
-  return 0;
-}
