@@ -7,15 +7,18 @@ vector<int> lps;
 string txt, pat;
 
 void precompute(int sz) {
-  int i = 1, len = 0;
-  while (i < sz) {
-    if (pat[i] == pat[len]) {
-      lps[i++] = ++len;
+  int i = 0, j = 1;
+  while (j < sz) {
+    if (pat[i] == pat[j]) {
+      i++;
+      lps[j] = i;
+      j++;
     } else {
-      if (len != 0) {
-        len = lps[len - 1]; // MVP line
+      if (i != 0) {
+        i = lps[i - 1]; // MVP line
       } else {
-        lps[i++] = 0;
+        lps[j] = 0;
+        j++;
       }
     }
   }
